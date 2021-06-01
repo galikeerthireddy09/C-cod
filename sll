@@ -1,0 +1,125 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int info;
+    struct node * link;
+};
+typedef struct node* NODE;
+
+NODE getnode()
+{
+    NODE x;
+    x=(NODE)malloc(sizeof(struct node));
+    if(x==NULL)
+    {
+        printf("memory not available\n");
+        exit(0);
+    }
+    return x;
+}
+NODE insert_front(NODE first,int item)
+{
+    NODE temp;
+    temp=getnode();
+    temp->info=item;
+    temp->link=first;
+    return temp;
+}
+NODE insert_rear(NODE first,int item)
+{
+    NODE current,temp,prev;
+    temp=getnode();
+    temp->info=item;
+    temp->link=NULL;
+    if(first==NULL)
+    {
+        first=temp;
+        return first;
+    }
+    current=first;
+    prev=NULL;
+    while(current!=NULL)
+    {
+        prev=current;
+        current=current->link;
+    }
+    prev->link=temp;
+    return first;
+    
+}
+NODE delete_rear(NODE first,int item)
+{
+    NODE current,temp,prev;
+    temp=getnode();
+    temp->info=item;
+    temp->link=NULL;
+    if(first==NULL)
+    {
+        first=temp;
+        return first;
+    }
+    current=first;
+    prev=NULL;
+    while(current->link!=NULL)
+    {
+        prev=current;
+        current=current->link;
+    }
+    free(current);
+    prev->link=NULL;
+   
+}
+
+void display(NODE first)
+{
+    NODE current;
+    if(first==NULL)
+    current=first;
+    printf("elements of node\n");
+    while(current->link!=NULL)
+    {
+        printf("%d\n",current->info);
+        current=current->link;
+    }
+    printf("%d\n",current->info);
+}
+
+NODE delete_front(NODE first)
+{
+    int elem;
+    NODE next;
+    elem=first->info;
+    next=first->link;
+    free(first);
+    return next;
+}
+void search(NODE first,int item)
+{
+    NODE cur;
+    int flag=0;
+    cur=first;
+    while(cur!=NULL)
+    {
+        if(item==cur->info)
+        {
+            printf("elem found\n");
+            flag=1;
+            break;
+        }
+        cur=cur->link;
+    }
+    if(flag==0)
+        printf("elem not found\n");
+}
+int main()
+{
+    struct node * first=NULL;
+    first=insert_front(first,22);
+    first=insert_front(first,11);
+    display(first);
+    first=delete_front(first);
+    display(first);
+    search(first,44);
+}
