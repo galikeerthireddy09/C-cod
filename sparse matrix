@@ -1,0 +1,62 @@
+#include <stdio.h>
+typedef struct sparse
+{
+    int row;
+    int col;
+    int value;
+}S;
+
+void accept(S a[10])
+{
+    int i,j,k=1,elem,m,n;
+    printf("enter row and col\n");
+    scanf("%d%d",&n,&m);
+    printf("enter the elem\n");
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<m;j++)
+        {
+            scanf("%d",&elem);
+            if(elem!=0)
+            {
+                a[k].row=i;
+                a[k].col=j;
+                a[k].value=elem;
+                k++;
+            }
+        }
+    }
+    a[0].row=n;
+    a[0].col=m;
+    a[0].value=k-1;
+}
+
+void display(S b[10])
+{
+    int n,m,i,j,k=1;
+    n=b[0].row;
+    m=b[0].col;
+    printf("element of matrix\n");
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<m;j++)
+        {
+            if(b[k].row==i&&b[k].col==j)
+            {
+                printf("%d\t",b[k].value);
+                k++;
+            }
+            else
+                printf("0\t");
+        }
+        printf("\n");
+    }
+}
+int main()
+{
+    S a[10];
+    accept(a);
+    display(a);
+}
+
+
