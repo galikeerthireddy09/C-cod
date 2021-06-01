@@ -1,0 +1,83 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+void push(int s[],int rear[],int bound[],int i)
+{
+    int elem;
+    printf("Enter the element \n");
+    scanf("%d",&elem);
+    if(rear[i]==bound[i+1])
+    {
+        printf("Queue %d is full \n",i);
+        return ;
+    }
+    rear[i]=rear[i]+1;
+    s[rear[i]]=elem;
+    printf("%d \n",rear[i]);
+}
+void pop(int s[],int rear[],int bound[],int i,int front[])
+{
+    int elm;
+    if(rear[i]==front[i])
+    {
+        printf("Queue %d underflow \n",i);
+        return ;
+    }
+    elm=s[rear[i]];
+    printf("Deleted element is %d \n",elm);
+    front[i]=front[i]+1;
+   // printf("Deleted element is %d \n",elm);
+}
+int display(int s[],int rear[],int bound[],int i,int front[])
+{
+        printf("Element of Queue %d \n",i);
+        if(rear[i]==bound[i])
+        {
+            printf("Queue %d underflow \n",i);
+            return 0;
+        }
+        for(int j=front[i];j<=rear[i];j++)
+        {
+            printf("%d ",s[j]);
+        }
+        printf("\n");
+    return 0;
+}
+int main()
+{
+    int n,m;
+    printf("Enter the maximum size of the Queue \n");
+    scanf("%d",&n);
+    printf("Enter the number of Queue you want to create \n");
+    scanf("%d",&m);
+    int s[n],rear[m],bound[m+1],i,front[m+1];
+    for(i=0;i<=m;i++)
+    {
+        rear[i]=(n/m*i)-1;
+        bound[i]=rear[i];
+        front[i]=rear[i]+1;
+    }
+    printf("You have created %d Queues of %d elements \n",m,n/m);
+    while (1)
+    {
+        int ch;
+        printf("\n MENU \n1.PUSH \n2.POP \n3.Display \n4.exit \n Enter Choice : ");
+        scanf("%d",&ch);
+        switch (ch)
+        {
+        case 1:printf("Enter the Queue number to store value \n");
+            scanf("%d",&i);
+            push(s,rear,bound,i);
+            break;
+        case 2:printf("Enter the Queue number to delete the element \n");
+            scanf("%d",&i);
+            pop(s,rear,bound,i,front);
+            break;
+        case 3:printf("Enter the Queue to be display \n");
+            scanf("%d",&i);
+            display(s,rear,bound,i,front);
+            break;
+        default:return (0);
+        }
+    }
+}
