@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include<string.h>
+#include<ctype.h>
+int evaluate(int,char,int);
+void push(int S[20],int *top, int operand)
+{
+    (*top)++;
+    S[*top]=operand;
+}
+int pop(int S[20],int *top)
+{
+    int elem;
+    elem=S[*top];
+    (*top)--;
+    return elem;
+}
+
+int main()
+{
+    char post_expr[20]="234*+";
+    int  S[20],op1,op2,res; 
+    char symbol;
+    int i,top=-1;
+    for(i=0;i<strlen(post_expr);i++)
+    {
+        symbol=post_expr[i];
+        if(isdigit(symbol))
+        {// its a digit
+            push(S,&top,symbol-'0');
+        }
+        else
+        {// if an operator
+            op2=pop(S,&top);
+            op1=pop(S,&top);
+            res=evaluate(op1,symbol,op2); 
+            push(S,&top,res);
+        }
+        
+    }    
+    printf("result = %d",pop(S,&top));
+}
+
+int evaluate(int op1 , char symbol , int op2)
+{
+    
+    switch(symbol)
+    {
+        case '+': return op1 + op2;
+        case '-': return op1 - op2;
+        case '*': return op1 * op2;
+        case '/': return op1 / op2;
+        case '$':
+        case '^': return pow(op1,op2);
+    }
+    
+}
