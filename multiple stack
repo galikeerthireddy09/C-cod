@@ -1,0 +1,80 @@
+#include<stdio.h>
+#define max 12
+#define no_of_stack 3
+/*Function to add an element to stack */
+void push (int s[],int top[],int bound[],int i)
+{
+      int num;
+      printf("Please enter stack number for performing the push and pop operations : ");
+      scanf("%d",&i);
+      if (top[i] == bound [i+1])
+      {
+            printf ("Stack is Full\n");
+            return;
+      }
+      printf ("\nEnter element to be pushed : ");
+      scanf ("%d", &num);
+      top[i] = top[i] + 1;
+      s[top[i]] = num;
+}
+/*Function to delete an element from stack */
+void pop (int s[],int top[],int bound[],int i)
+{
+      int num;
+      printf("Please enter stack number for performing the push and pop operations : ");
+      scanf("%d",&i);
+      if (top[i] == bound[i])
+      {
+            printf ("Stack is Empty\n");
+            return;
+      }
+      else
+      {
+            num = s[top[i]];
+            printf ("poped element is = %d\n", s[top[i]]);
+            top[i] = top[i] - 1;
+      }
+      return;
+}
+/*Function to display the status of stack */
+void display (int s[],int top[],int bound[],int i)
+{
+       int j;
+      for(i=0;i<no_of_stack;i++)
+      if (top[i] == bound[i])
+      {
+            printf ("Stack is empty\n");
+            continue;
+      }
+      for (j=bound[i]+1;j<top[i];j++)
+      {
+            printf("\nStatus of elements in stack : \n");
+            printf ("%d\n", s[j]);
+      }
+}
+int main ()
+{
+      int s[max],top[no_of_stack+1],bound[no_of_stack+1],i,ch;
+      for(i=0;i<=no_of_stack;i++)
+      {
+         top[i]=(max/no_of_stack*i)-1;
+         bound[i]=top[i];
+      }
+      while(1)
+      {
+          printf("MENU\n 1.PUSH\n 2.POP\n 3.DISPLAY\n 4.EXIT\n CHOICE : ");
+          scanf("%d",&ch);
+          //printf("Please enter stack number for performing the push and pop operations : ");
+          //scanf("%d",&i);
+          switch(ch)
+          {
+              case 1: push(s,top, bound, i);
+                      break;
+              case 2: pop(s, top, bound, i);
+                      break;
+              case 3: display(s, top, bound, i);
+                      break;
+              default: return (0);
+          }
+      }
+}
