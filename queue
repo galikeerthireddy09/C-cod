@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define max 10
+int insert_que ( int queue[max], int *rear , int *elem)
+{
+      if ( *rear == max -1 )
+            return(-1);
+      else
+      {
+            *rear = *rear + 1;
+            queue[*rear] = *elem;
+            return(1);
+      }
+}
+int del_que( int queue[max], int *front, int *rear , int *elem)
+{
+      if ( *front == *rear)
+            return(-1);
+      else
+      {
+            (*front)++;
+            *elem = queue[*front];
+            return(1);
+      }
+}
+int main()
+{
+      int queue[max],elem;
+      int front,rear,reply,ch;
+      front = rear = -1;
+      printf("\tMenu");
+      printf("\n 1. Insert element in queue");
+      printf("\n 2. Delete element from queue");
+      printf("\n 3. Exit");
+      while(1)
+      {
+            printf("\nChoose operation : ");
+            scanf("%d",&ch);
+            switch(ch)
+            {
+                  case 1 ://insert
+                        printf("\nEnter Number : ");
+                        scanf("%d",&elem);
+                        reply = insert_que(queue,&rear,&elem);
+                        if ( reply == - 1)
+                              printf("Queue is full");
+                        else
+                              printf("%d is inserted in queue.\n",elem);
+                        break;
+                  case 2 : //dele
+                        reply = del_que(queue,&front,&rear,&elem);
+                        if ( reply == -1 )
+                              printf("Queue is empty ");
+                        else
+                              printf("\nDeleted number is : %d\n", elem);
+                              break;
+                        case 3 : exit(0);
+            }
+      }
+}
