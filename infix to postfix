@@ -1,0 +1,73 @@
+#include <stdio.h>
+#include<string.h>
+//stack precedence
+int F( char symbol)
+{
+	switch(symbol)
+	{
+		case '+' :
+		case '-' : return 2;
+		case '*' :
+		case '/' : return 4;
+		case '^' :
+		case '$' : return 5;
+		case '(': return 0;
+		case '#': return -1;
+		default: return 8; 
+	}
+}
+//input precedence
+int G( char symbol)
+{
+	switch(symbol)
+	{
+		case '+' :
+		case '-' : return 1;
+		case '*' :
+		case '/' : return 3;
+		case '^' :
+		case '$' : return 6;
+		case '(': return 9;
+		case ')': return 0;
+		default: return 7; 
+	}
+}
+void push(char S[20],int *top, char symbol)
+{
+    (*top)++;//top is incremented by 1
+    S[*top]=symbol;
+}
+char pop(char S[20],int *top)
+{
+    char elem;
+    elem=S[*top];
+    (*top)--;//top gets decremented by 1
+    return elem;
+}
+
+int main()
+{
+    char infix_expr[20]="a+b*c";
+    char S[20],symbol,postfix[20];
+    int i,top=-1,j=0;
+    
+    push(S,&top,'#');//initially # will get into the stack
+    
+    for(i=0;i<strlen(infix_expr);i++)//reads every character in the  infix expression
+    {
+        symbol=infix_expr[i];
+        while(F(S[top])> G(symbol)) //stack precedence > input precedence
+            postfix[j++]=pop(S,&top);
+        if(F(S[top])!= G(symbol))//stack precedence is not equal to input precedence
+            push(S,&top,symbol);
+        else
+            top--;
+    }    
+    while(S[top]!='#')
+        postfix[j++]=pop(S,&top);
+    postfix[++j]='\0';
+    printf("postfix expr is %s",postfix);
+    return 0;
+}
+
+
