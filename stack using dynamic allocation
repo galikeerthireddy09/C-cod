@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_SIZE 4
+
+void push(int *S,int *top)
+{
+    int elem;
+    printf("enter the elem to be inserted\n");
+    scanf("%d",&elem);
+    if(*top==MAX_SIZE-1)
+    {
+        printf("stack over flow and dynamic size has been increased\n");
+        S=(int *)realloc(S,sizeof(int)*((*top)+1));
+        
+        
+    }
+    (*top)++;
+    S[*top]=elem;
+    return S;
+}
+void pop(int S[MAX_SIZE],int *top)
+{
+    int elem;
+    if(*top==1){
+        printf("under flow condition\n");
+    }
+    else
+    {
+        elem=S[*top];
+        (*top)--;
+        printf("elem poped is %d\n",elem);
+    }
+}
+void display(int *S,int top)
+{
+    int i;
+    printf("elem of stack\n");
+    for(i=0;i<=top;i++)
+        printf("%d\n",S[i]);
+}
+int main()
+{
+    int *S,top=-1,ch;
+    S=(int*)malloc(sizeof(int)*MAX_SIZE);
+    while(1){
+        printf("1: push\n 2: pop\n 3: display\n 4: exit\n");
+        scanf("%d",&ch);
+        
+        switch(ch)
+        {
+            case 1: push(S,&top);
+                    display(S,top);
+                    break;
+            case 2: pop(S,&top);
+                    display(S,top);
+                    break;
+            case 3: display(S,top);
+                    break;
+            default: return 0;
+        }
+    }
+    
+}
+
