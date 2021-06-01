@@ -1,0 +1,19 @@
+#include<stdio.h>
+void towerofhanoi(int n,char s,char t,char d)
+{
+    if(n==0)
+        return;
+    towerofhanoi(n-1,s,d,t);
+    //move n-1 discs from source to temp
+    printf("move disc %d from %c to %c\n",n,s,d);
+    //move n discs from source to destination
+    towerofhanoi(n-1,t,s,d);
+    //move n-1 discs from temp to destination
+}
+int main()
+{
+    towerofhanoi(3,'A','B','C');
+    // A is source s
+    // B is temporary t
+    // C is destination d
+}
